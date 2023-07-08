@@ -5,6 +5,9 @@ using UnityEngine;
 public class FPS : MonoBehaviour
 {
     public static FPS Instance;
+
+    public Weapon currentWeapon;
+
     private void Awake()
     {
         if(Instance == null)
