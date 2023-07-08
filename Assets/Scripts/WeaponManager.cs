@@ -64,12 +64,38 @@ public class WeaponManager : MonoBehaviour
 
     #endregion
 
+    #region PROJECTILE MODE
+
+    public void FireProjectile()
+    {
+        if (Time.time > nextShot && currentAmmo > 0)
+        {
+            Vector3 aimedPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+            GameObject x = Instantiate(currentWeapon.bulletObject, mainCam.transform.position, Quaternion.identity);
+            x.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position).normalized * 1000);
+
+
+            nextShot += currentWeapon.frequency;
+            currentAmmo--;
+
+            if (currentAmmo == 0)
+            {
+                currentAmmo = currentWeapon.ammo;
+                nextShot += currentWeapon.reloadTime;
+                Debug.Log("Reloading");
+            }
+        }
+    }
+
+    #endregion
+
+
     public void ChangeWeapon(int val)
     {
         currentWeapon = weapons[val];
 
         Debug.Log("Changed to " + currentWeapon.weaponName.ToString());
-        nextShot = currentWeapon.frequency;
+        nextShot = Time.time + currentWeapon.frequency;
         currentAmmo = currentWeapon.ammo;
 
     }

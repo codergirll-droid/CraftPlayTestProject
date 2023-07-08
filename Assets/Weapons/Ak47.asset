@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce77bf035dd0d634891c3b96ce96f318, type: 3}
   m_Name: Ak47
   m_EditorClassIdentifier: 
+  weaponName: 0
   ammo: 30
   damage: 20
   frequency: 0.5
   reloadTime: 3
-  bulletObject: {fileID: 0}
+  bulletObject: {fileID: 2439527316352611115, guid: 0ed2250c1f9ed77498f2435188a78f85, type: 3}

@@ -17,4 +17,4 @@ MonoBehaviour:
   damage: 50
   frequency: 4
   reloadTime: 7
-  bulletObject: {fileID: 0}
+  bulletObject: {fileID: 5477466125004612314, guid: b72eea00844afbe45a6112bbeeb2149d, type: 3}

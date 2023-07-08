@@ -27,4 +27,16 @@ public class UIManager : MonoBehaviour
         crosshair.transform.position = Vector3.Lerp(crosshair.transform.position, Input.mousePosition, crosshairLerpValue);
     }
 
+    public void ChangeGameMode(int val)
+    {
+        if(val == 0)
+        {
+            FPS.Instance.gameMode = FPS.GameMode.RaycastMode;
+        }
+        else
+        {
+            FPS.Instance.gameMode = FPS.GameMode.ProjectileMode;
+
+        }
+    }
 }

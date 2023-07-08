@@ -8,6 +8,9 @@ public class FPS : MonoBehaviour
 
     public Weapon currentWeapon;
 
+    public enum GameMode { RaycastMode, ProjectileMode};
+    public GameMode gameMode = GameMode.RaycastMode;
+
     private void Awake()
     {
         if(Instance == null)
@@ -22,9 +25,18 @@ public class FPS : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            WeaponManager.Instance.FireRaycast();
+            if(gameMode == GameMode.RaycastMode)
+            {
+                WeaponManager.Instance.FireRaycast();
+
+            }
+            else
+            {
+                WeaponManager.Instance.FireProjectile();
+
+            }
         }
     }
 }
