@@ -68,7 +68,7 @@ public class WeaponManager : MonoBehaviour
     {
         currentWeapon = weapons[val];
 
-        Debug.Log("Changed to " + currentWeapon.weaponName.ToString() + " val : " + val);
+        Debug.Log("Changed to " + currentWeapon.weaponName.ToString());
         nextShot = currentWeapon.frequency;
         currentAmmo = currentWeapon.ammo;
 
