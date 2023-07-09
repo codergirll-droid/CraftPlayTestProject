@@ -1318,7 +1318,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: Raycast Mode
       m_Image: {fileID: 0}
-    - m_Text: Physical Mode
+    - m_Text: Projectile Mode
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

@@ -15,6 +15,6 @@ MonoBehaviour:
   weaponName: 0
   ammo: 30
   damage: 20
-  frequency: 0.5
+  frequency: 0.3
   reloadTime: 3
   bulletObject: {fileID: 2439527316352611115, guid: 0ed2250c1f9ed77498f2435188a78f85, type: 3}

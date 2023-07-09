@@ -38,7 +38,7 @@ public class WeaponManager : MonoBehaviour
 
     public void FireRaycast()
     {
-        if(Time.time > nextShot && currentAmmo > 0)
+        if(Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
@@ -48,7 +48,7 @@ public class WeaponManager : MonoBehaviour
                 Debug.Log("Hit " + hit.collider.gameObject.name);
 
             }
-            nextShot += currentWeapon.frequency;
+            nextShot = currentWeapon.frequency + Time.realtimeSinceStartup;
             currentAmmo--;
 
             if(currentAmmo == 0)
@@ -68,15 +68,16 @@ public class WeaponManager : MonoBehaviour
 
     public void FireProjectile()
     {
-        if (Time.time > nextShot && currentAmmo > 0)
+        if (Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
             Vector3 aimedPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
             GameObject x = Instantiate(currentWeapon.bulletObject, mainCam.transform.position, Quaternion.identity);
             x.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position).normalized * 1000);
 
 
-            nextShot += currentWeapon.frequency;
+            nextShot = currentWeapon.frequency + Time.realtimeSinceStartup;
             currentAmmo--;
+            Debug.Log("Time is " + Time.realtimeSinceStartup + " nextshot is " + nextShot);
 
             if (currentAmmo == 0)
             {
@@ -95,7 +96,7 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = weapons[val];
 
         Debug.Log("Changed to " + currentWeapon.weaponName.ToString());
-        nextShot = Time.time + currentWeapon.frequency;
+        nextShot = Time.realtimeSinceStartup;
         currentAmmo = currentWeapon.ammo;
 
     }
