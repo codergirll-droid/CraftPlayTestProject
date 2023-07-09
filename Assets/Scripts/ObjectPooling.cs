@@ -62,12 +62,8 @@ public class ObjectPooling : MonoBehaviour
         {
             if (weapons[i] == weapon)
             {
-                Debug.Log(pooledBullets.Count);
-
                 for (int j = 0; j < amountsToPool[i]; j++)
                 {
-                    Debug.Log(pooledBullets[i][j].name);
-
                     if (!pooledBullets[i][j].activeInHierarchy)
                     {
 

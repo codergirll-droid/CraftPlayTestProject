@@ -11,6 +11,9 @@ public class UIManager : MonoBehaviour
     [Range(0,1)]
     public float crosshairLerpValue = 0.5f;
     public TMP_Text ammoCountTxt;
+    FPS fpsInstance;
+    Touch touch;
+    Vector3 newCrosshairPos;
 
     private void Awake()
     {
@@ -24,23 +27,34 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        fpsInstance = FPS.Instance;
+        newCrosshairPos = new Vector3();
+    }
+
     private void Update()
     {
-        if (FPS.Instance.isDeviceTouchscreen)
+        if (fpsInstance.isDeviceTouchscreen)
         {
             if (Input.touchCount > 0)
             {
-                Touch touch = Input.GetTouch(0);
+                touch = Input.GetTouch(0);
 
-                if(touch.phase == TouchPhase.Began)
+                newCrosshairPos.x = touch.position.x;
+                newCrosshairPos.y = touch.position.y;
+                newCrosshairPos.z = crosshair.transform.position.z;
+
+                if (touch.phase == TouchPhase.Began)
                 {
-                    crosshair.transform.position = new Vector3(touch.position.x, touch.position.y, crosshair.transform.position.z);
+
+                    crosshair.transform.position = newCrosshairPos;
 
                 }
                 else if (touch.phase == TouchPhase.Moved)
                 {
                     crosshair.transform.position = Vector3.Lerp(crosshair.transform.position, 
-                        new Vector3(touch.position.x, touch.position.y, crosshair.transform.position.z), crosshairLerpValue);
+                        newCrosshairPos, crosshairLerpValue);
 
                 }
 
@@ -57,11 +71,11 @@ public class UIManager : MonoBehaviour
     {
         if(val == 0)
         {
-            FPS.Instance.gameMode = FPS.GameMode.RaycastMode;
+            fpsInstance.gameMode = FPS.GameMode.RaycastMode;
         }
         else
         {
-            FPS.Instance.gameMode = FPS.GameMode.ProjectileMode;
+            fpsInstance.gameMode = FPS.GameMode.ProjectileMode;
 
         }
     }

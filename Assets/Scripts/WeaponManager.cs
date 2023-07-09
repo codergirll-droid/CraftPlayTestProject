@@ -13,6 +13,13 @@ public class WeaponManager : MonoBehaviour
     float nextShot;
     public Weapon currentWeapon;
     int currentAmmo;
+    RaycastHit hit;
+    Ray ray;
+    Vector3 aimedPos;
+    GameObject createdBullet;
+    ObjectPooling objectPooling;
+    IEnumerator c;
+    GameObject bullet;
 
     private void Awake()
     {
@@ -33,7 +40,7 @@ public class WeaponManager : MonoBehaviour
         nextShot = currentWeapon.frequency;
         currentAmmo = currentWeapon.ammo;
         UIManager.Instance.UpdateAmmoCount(currentAmmo.ToString());
-
+        objectPooling = ObjectPooling.Instance;
     }
 
     #region RAYCAST MODE
@@ -42,8 +49,7 @@ public class WeaponManager : MonoBehaviour
     {
         if(Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
-            RaycastHit hit;
-            Ray ray = mainCam.ScreenPointToRay(input);
+            ray = mainCam.ScreenPointToRay(input);
 
             if (Physics.Raycast(ray, out hit))
             {
@@ -76,13 +82,12 @@ public class WeaponManager : MonoBehaviour
     {
         if (Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
-            Vector3 aimedPos = mainCam.ScreenToWorldPoint(input + Vector3.forward);
-            GameObject bullett = CreateBullet(currentWeapon, mainCam.transform.position);
-            bullett.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position) * currentWeapon.bulletSpeed);
+            aimedPos = mainCam.ScreenToWorldPoint(input + Vector3.forward);
+            createdBullet = CreateBullet(currentWeapon, mainCam.transform.position);
+            createdBullet.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position) * currentWeapon.bulletSpeed);
 
             nextShot = currentWeapon.frequency + Time.realtimeSinceStartup;
             currentAmmo--;
-            Debug.Log("Aimed pos is " + aimedPos);
 
             if (currentAmmo == 0)
             {
@@ -97,11 +102,11 @@ public class WeaponManager : MonoBehaviour
 
     GameObject CreateBullet(Weapon weapon, Vector3 bulletPosition)
     {
-        GameObject bullet = ObjectPooling.Instance.GetPooledObject(weapon);
+        bullet = objectPooling.GetPooledObject(weapon);
         bullet.transform.position = bulletPosition;
         bullet.SetActive(true);
 
-        IEnumerator c = DisableBullet(bullet);
+        c = DisableBullet(bullet);
         StartCoroutine(c);
         return bullet;
     }

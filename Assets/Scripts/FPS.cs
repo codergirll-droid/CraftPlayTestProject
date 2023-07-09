@@ -11,6 +11,7 @@ public class FPS : MonoBehaviour
     public enum GameMode { RaycastMode, ProjectileMode};
     public GameMode gameMode = GameMode.RaycastMode;
     public bool isDeviceTouchscreen = false;
+    WeaponManager weaponManager;
 
     private void Awake()
     {
@@ -30,6 +31,9 @@ public class FPS : MonoBehaviour
         {
             isDeviceTouchscreen = true;
         }
+
+        weaponManager = WeaponManager.Instance;
+
     }
 
     private void Update()
@@ -45,12 +49,12 @@ public class FPS : MonoBehaviour
                 {
                     if (gameMode == GameMode.RaycastMode)
                     {
-                        WeaponManager.Instance.FireRaycast(touch.position);
+                        weaponManager.FireRaycast(touch.position);
 
                     }
                     else
                     {
-                        WeaponManager.Instance.FireProjectile(touch.position);
+                        weaponManager.FireProjectile(touch.position);
 
                     }
                 }
@@ -64,12 +68,12 @@ public class FPS : MonoBehaviour
             {
                 if (gameMode == GameMode.RaycastMode)
                 {
-                    WeaponManager.Instance.FireRaycast(Input.mousePosition);
+                    weaponManager.FireRaycast(Input.mousePosition);
 
                 }
                 else
                 {
-                    WeaponManager.Instance.FireProjectile(Input.mousePosition);
+                    weaponManager.FireProjectile(Input.mousePosition);
 
                 }
             }
