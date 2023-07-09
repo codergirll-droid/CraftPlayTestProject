@@ -6,12 +6,12 @@ public class ObjectPooling : MonoBehaviour
 {
     public static ObjectPooling Instance;
 
-    List<List<GameObject>> pooledObjects;
+    List<List<GameObject>> pooledBullets;
     [Space]
 
-    public List<string> objectNames;
+    public List<Weapon> weapons;
 
-    public GameObject[] objectsToPool;
+    GameObject[] bulletsToPool;
 
     public int[] amountsToPool;
 
@@ -29,41 +29,49 @@ public class ObjectPooling : MonoBehaviour
             Destroy(this);
         }
 
-        parentObject = new GameObject("parentObject");
-        pooledObjects = new List<List<GameObject>>();
+        parentObject = new GameObject("bulletsParentObject");
+        pooledBullets = new List<List<GameObject>>();
+        bulletsToPool = new GameObject[weapons.Count];
+
+        for (int i = 0; i < weapons.Count; i++)
+        {
+
+            bulletsToPool[i] = weapons[i].bulletObject;
+        }
+
         GameObject tmp;
 
-        for (int k = 0; k < objectsToPool.Length; k++)
+        for (int k = 0; k < weapons.Count; k++)
         {
-            pooledObjects.Add(new List<GameObject>());
+            pooledBullets.Add(new List<GameObject>());
 
 
             for (int j = 0; j < amountsToPool[k]; j++)
             {
-                tmp = Instantiate(objectsToPool[k], parentObject.transform);
+                tmp = Instantiate(bulletsToPool[k], parentObject.transform);
                 tmp.SetActive(false);
-                pooledObjects[k].Add(tmp);
+                pooledBullets[k].Add(tmp);
             }
         }
 
     }
 
-    public GameObject GetPooledObject(string objectName)
+    public GameObject GetPooledObject(Weapon weapon)
     {
-        for (int i = 0; i < objectNames.Count; i++)
+        for (int i = 0; i < weapons.Count; i++)
         {
-            if (objectNames[i] == objectName)
+            if (weapons[i] == weapon)
             {
-                Debug.Log(pooledObjects.Count);
+                Debug.Log(pooledBullets.Count);
 
                 for (int j = 0; j < amountsToPool[i]; j++)
                 {
-                    Debug.Log(pooledObjects[i][j].name);
+                    Debug.Log(pooledBullets[i][j].name);
 
-                    if (!pooledObjects[i][j].activeInHierarchy)
+                    if (!pooledBullets[i][j].activeInHierarchy)
                     {
 
-                        return pooledObjects[i][j];
+                        return pooledBullets[i][j];
                     }
                 }
             }

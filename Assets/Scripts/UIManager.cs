@@ -24,7 +24,15 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        crosshair.transform.position = Vector3.Lerp(crosshair.transform.position, Input.mousePosition, crosshairLerpValue);
+        if (FPS.Instance.isDeviceTouchscreen)
+        {
+            //touches
+        }
+        else
+        {
+            crosshair.transform.position = Vector3.Lerp(crosshair.transform.position, Input.mousePosition, crosshairLerpValue);
+
+        }
     }
 
     public void ChangeGameMode(int val)

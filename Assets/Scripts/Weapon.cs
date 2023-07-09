@@ -10,5 +10,7 @@ public class Weapon : ScriptableObject
     public float damage;
     public float frequency;
     public float reloadTime;
+    public float bulletSpeed;
+    public float bulletDestroyTime = 3;
     public GameObject bulletObject;
 }

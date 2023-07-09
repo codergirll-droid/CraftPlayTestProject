@@ -16,5 +16,7 @@ MonoBehaviour:
   ammo: 5
   damage: 50
   frequency: 1
-  reloadTime: 7
-  bulletObject: {fileID: 5477466125004612314, guid: b72eea00844afbe45a6112bbeeb2149d, type: 3}
+  reloadTime: 5
+  bulletSpeed: 600
+  bulletDestroyTime: 3
+  bulletObject: {fileID: 7573311686508169666, guid: 06e39171a4ff31a40900438e70bc97a1, type: 3}

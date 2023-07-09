@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
 
     Camera mainCam;
     float nextShot;
-    Weapon currentWeapon;
+    public Weapon currentWeapon;
     int currentAmmo;
 
     private void Awake()
@@ -46,6 +46,8 @@ public class WeaponManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log("Hit " + hit.collider.gameObject.name);
+                //check if you hit the right tag, eg.enemy
+                    //DamageEnemy(currentWeapon.damage);
 
             }
             nextShot = currentWeapon.frequency + Time.realtimeSinceStartup;
@@ -70,14 +72,13 @@ public class WeaponManager : MonoBehaviour
     {
         if (Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
-            Vector3 aimedPos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-            GameObject x = Instantiate(currentWeapon.bulletObject, mainCam.transform.position, Quaternion.identity);
-            x.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position).normalized * 1000);
-
+            Vector3 aimedPos = mainCam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward);
+            GameObject bullett = CreateBullet(currentWeapon, mainCam.transform.position);
+            bullett.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position) * currentWeapon.bulletSpeed);
 
             nextShot = currentWeapon.frequency + Time.realtimeSinceStartup;
             currentAmmo--;
-            Debug.Log("Time is " + Time.realtimeSinceStartup + " nextshot is " + nextShot);
+            Debug.Log("Aimed pos is " + aimedPos);
 
             if (currentAmmo == 0)
             {
@@ -88,8 +89,30 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    GameObject CreateBullet(Weapon weapon, Vector3 bulletPosition)
+    {
+        GameObject bullet = ObjectPooling.Instance.GetPooledObject(weapon);
+        bullet.transform.position = bulletPosition;
+        bullet.SetActive(true);
+
+        IEnumerator c = DisableBullet(bullet);
+        StartCoroutine(c);
+        return bullet;
+    }
+
+    IEnumerator DisableBullet(GameObject bullet)
+    {
+        yield return new WaitForSeconds(currentWeapon.bulletDestroyTime);
+        bullet.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        bullet.SetActive(false);
+    }
+
     #endregion
 
+    public void DamageEnemy(float dmg)
+    {
+        //check if you hit the desired target, decrease health by dmg, can be called from the Bullet script
+    }
 
     public void ChangeWeapon(int val)
     {

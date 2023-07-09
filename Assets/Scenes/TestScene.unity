@@ -817,7 +817,7 @@ RectTransform:
   - {fileID: 426641042}
   - {fileID: 895952285}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1263,7 +1263,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &895952286
@@ -2281,6 +2281,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 47cc9d09caa96f54c8bcef1e3d5fff3d, type: 2}
   - {fileID: 11400000, guid: 7a309cbae8de3ea40bd1048218e614d8, type: 2}
   - {fileID: 11400000, guid: 141573ae376063c4ab96cc21155fe0ef, type: 2}
+  currentWeapon: {fileID: 0}
 --- !u!4 &1656457732
 Transform:
   m_ObjectHideFlags: 0
@@ -2294,7 +2295,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1656457733
 MonoBehaviour:
@@ -2322,12 +2323,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cfe7d9e8aeb3841bce01040ebe38f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectNames:
-  - Ak47Bullets
-  - UziBullets
-  - AvmBullets
-  objectsToPool: []
-  amountsToPool: 320000003200000014000000
+  weapons:
+  - {fileID: 11400000, guid: 47cc9d09caa96f54c8bcef1e3d5fff3d, type: 2}
+  - {fileID: 11400000, guid: 7a309cbae8de3ea40bd1048218e614d8, type: 2}
+  - {fileID: 11400000, guid: 141573ae376063c4ab96cc21155fe0ef, type: 2}
+  amountsToPool: 640000002c01000032000000
 --- !u!1 &1657325503
 GameObject:
   m_ObjectHideFlags: 0

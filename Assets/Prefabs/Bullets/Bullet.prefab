@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 4655529496417926052}
   - component: {fileID: 1857772879473634767}
   - component: {fileID: 6124736484289885313}
+  - component: {fileID: 1754994119987189133}
   m_Layer: 0
-  m_Name: Ak47Bullet
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,3 +115,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1754994119987189133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2439527316352611115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edda58ec48e93f4184e7bd2cb137fe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

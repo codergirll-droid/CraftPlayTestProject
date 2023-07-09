@@ -17,4 +17,6 @@ MonoBehaviour:
   damage: 20
   frequency: 0.3
   reloadTime: 3
-  bulletObject: {fileID: 2439527316352611115, guid: 0ed2250c1f9ed77498f2435188a78f85, type: 3}
+  bulletSpeed: 800
+  bulletDestroyTime: 3
+  bulletObject: {fileID: 836087136781138869, guid: d4881b204e66cbd4297bd10b78fbba97, type: 3}
