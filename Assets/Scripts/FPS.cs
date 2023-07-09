@@ -36,7 +36,27 @@ public class FPS : MonoBehaviour
     {
         if (isDeviceTouchscreen)
         {
-            //get touch
+
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+                {
+                    if (gameMode == GameMode.RaycastMode)
+                    {
+                        WeaponManager.Instance.FireRaycast(touch.position);
+
+                    }
+                    else
+                    {
+                        WeaponManager.Instance.FireProjectile(touch.position);
+
+                    }
+                }
+
+            }
+
         }
         else
         {
@@ -44,12 +64,12 @@ public class FPS : MonoBehaviour
             {
                 if (gameMode == GameMode.RaycastMode)
                 {
-                    WeaponManager.Instance.FireRaycast();
+                    WeaponManager.Instance.FireRaycast(Input.mousePosition);
 
                 }
                 else
                 {
-                    WeaponManager.Instance.FireProjectile();
+                    WeaponManager.Instance.FireProjectile(Input.mousePosition);
 
                 }
             }

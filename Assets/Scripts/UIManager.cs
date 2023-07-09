@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class UIManager : MonoBehaviour
     public GameObject crosshair;
     [Range(0,1)]
     public float crosshairLerpValue = 0.5f;
+    public TMP_Text ammoCountTxt;
 
     private void Awake()
     {
@@ -26,7 +28,23 @@ public class UIManager : MonoBehaviour
     {
         if (FPS.Instance.isDeviceTouchscreen)
         {
-            //touches
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if(touch.phase == TouchPhase.Began)
+                {
+                    crosshair.transform.position = new Vector3(touch.position.x, touch.position.y, crosshair.transform.position.z);
+
+                }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    crosshair.transform.position = Vector3.Lerp(crosshair.transform.position, 
+                        new Vector3(touch.position.x, touch.position.y, crosshair.transform.position.z), crosshairLerpValue);
+
+                }
+
+            }
         }
         else
         {
@@ -46,5 +64,9 @@ public class UIManager : MonoBehaviour
             FPS.Instance.gameMode = FPS.GameMode.ProjectileMode;
 
         }
+    }
+    public void UpdateAmmoCount(string ammoCount)
+    {
+        ammoCountTxt.text = ammoCount;
     }
 }

@@ -32,16 +32,18 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = FPS.Instance.currentWeapon;
         nextShot = currentWeapon.frequency;
         currentAmmo = currentWeapon.ammo;
+        UIManager.Instance.UpdateAmmoCount(currentAmmo.ToString());
+
     }
 
     #region RAYCAST MODE
 
-    public void FireRaycast()
+    public void FireRaycast(Vector3 input)
     {
         if(Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
             RaycastHit hit;
-            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = mainCam.ScreenPointToRay(input);
 
             if (Physics.Raycast(ray, out hit))
             {
@@ -59,6 +61,8 @@ public class WeaponManager : MonoBehaviour
                 nextShot += currentWeapon.reloadTime;
                 Debug.Log("Reloading");
             }
+            UIManager.Instance.UpdateAmmoCount(currentAmmo.ToString());
+
         }
 
 
@@ -68,11 +72,11 @@ public class WeaponManager : MonoBehaviour
 
     #region PROJECTILE MODE
 
-    public void FireProjectile()
+    public void FireProjectile(Vector3 input)
     {
         if (Time.realtimeSinceStartup > nextShot && currentAmmo > 0)
         {
-            Vector3 aimedPos = mainCam.ScreenToWorldPoint(Input.mousePosition + Vector3.forward);
+            Vector3 aimedPos = mainCam.ScreenToWorldPoint(input + Vector3.forward);
             GameObject bullett = CreateBullet(currentWeapon, mainCam.transform.position);
             bullett.GetComponent<Rigidbody>().AddForce((aimedPos - mainCam.transform.position) * currentWeapon.bulletSpeed);
 
@@ -86,6 +90,8 @@ public class WeaponManager : MonoBehaviour
                 nextShot += currentWeapon.reloadTime;
                 Debug.Log("Reloading");
             }
+            UIManager.Instance.UpdateAmmoCount(currentAmmo.ToString());
+
         }
     }
 
